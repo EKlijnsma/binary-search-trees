@@ -35,6 +35,27 @@ class Tree
     end
   end
 
+  def insert(value)
+    # Create new node and initiate current node to root node
+    new_node = Node.new(value)
+    current_node = root
+    
+    while true do
+      # Determine the direction
+      direction = (new_node > current_node ? :right : :left)
+      if current_node.send(direction).nil?
+        # Insert node and break if no further nodes exists here
+        current_node.send("#{direction}=", new_node)
+        break
+      else
+        # Change current node to the next node
+        current_node = current_node.send(direction)
+      end
+    end
+    # Return the newly inserted node
+    new_node
+  end
+
     # Pretty print method shared on Discord, made available in the assignment itself
     def pretty_print(node = @root, prefix = '', is_left = true)
       pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right

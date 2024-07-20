@@ -7,6 +7,7 @@ test = Tree.new(array)
 
 test.pretty_print
 puts "\n\n"
-p test.find(9)
+test.insert(34)
+test.pretty_print
 
 
