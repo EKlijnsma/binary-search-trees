@@ -21,4 +21,11 @@ class Tree
     # Return the root node of the tree
     Node.new(data, left_node, right_node)
   end
+
+    # Pretty print method shared on Discord, made available in the assignment itself
+    def pretty_print(node = @root, prefix = '', is_left = true)
+      pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
+      puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
+      pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
+     end
 end
