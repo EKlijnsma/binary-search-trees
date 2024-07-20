@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require_relative 'node'
 
-class Tree 
+class Tree
   attr_accessor :root
 
   def initialize(array)
@@ -17,7 +19,7 @@ class Tree
     data = array[mid]
     # Recursively build a tree from the slices left and right to the mid index
     left_node = build_tree(array[0...mid])
-    right_node = build_tree(array[mid + 1..-1])
+    right_node = build_tree(array[mid + 1..])
     # Return the root node of the tree
     Node.new(data, left_node, right_node)
   end
@@ -26,9 +28,10 @@ class Tree
     value = Node.new(value)
     current_node = root
 
-    while true do
+    loop do
       # Return node if the value was found
       return current_node if current_node.nil? || value == current_node
+
       # Otherwise, determine the direction and update the current node
       direction = (value > current_node ? :right : :left)
       current_node = current_node.send(direction)
@@ -39,8 +42,8 @@ class Tree
     # Create new node and initiate current node to root node
     new_node = Node.new(value)
     current_node = root
-    
-    while true do
+
+    loop do
       # Determine the direction
       direction = (new_node > current_node ? :right : :left)
       if current_node.send(direction).nil?
@@ -56,10 +59,10 @@ class Tree
     new_node
   end
 
-    # Pretty print method shared on Discord, made available in the assignment itself
-    def pretty_print(node = @root, prefix = '', is_left = true)
-      pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
-      puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
-      pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
-     end
+  # Pretty print method shared on Discord, made available in the assignment itself
+  def pretty_print(node = @root, prefix = '', is_left = true)
+    pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
+    puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
+    pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
+  end
 end
