@@ -22,6 +22,19 @@ class Tree
     Node.new(data, left_node, right_node)
   end
 
+  def find(value)
+    value = Node.new(value)
+    current_node = root
+
+    while true do
+      # Return node if the value was found
+      return current_node if current_node.nil? || value == current_node
+      # Otherwise, determine the direction and update the current node
+      direction = (value > current_node ? :right : :left)
+      current_node = current_node.send(direction)
+    end
+  end
+
     # Pretty print method shared on Discord, made available in the assignment itself
     def pretty_print(node = @root, prefix = '', is_left = true)
       pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
