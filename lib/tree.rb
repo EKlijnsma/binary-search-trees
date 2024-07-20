@@ -59,6 +59,38 @@ class Tree
     new_node
   end
 
+  def delete(value, root = @root)
+    # remove value from left or right tree
+    if value > root.data
+      # delete value from the right subtree if value is larger than root
+      root.right = delete(value, root.right)
+    elsif value < root.data
+      # delete value from the left subtree if value is smaller than root
+      root.left = delete(value, root.left)
+    else
+      # in this case the current root must be deleted
+      # If one child is nil, return the other child.
+      return root.left if root.right.nil?
+      return root.right if root.left.nil?
+
+      # If 2 child nodes, find successor, replace target value with successor value and remove successor
+      successor = min_value_node(root.right)
+      root.data = successor.data
+      root.right = delete(successor.data, root.right)
+    end
+    # return the updated root
+    root
+  end
+
+  def min_value_node(root)
+    min = root
+    until root.left.nil?
+      root = root.left
+      min = root
+    end
+    min
+  end
+
   # Pretty print method shared on Discord, made available in the assignment itself
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right

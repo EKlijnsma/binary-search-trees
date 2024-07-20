@@ -8,5 +8,6 @@ test = Tree.new(array)
 
 test.pretty_print
 puts "\n\n"
-test.insert(34)
+test.delete(8)
+test.delete(9)
 test.pretty_print
